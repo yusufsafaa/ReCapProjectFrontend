@@ -1,0 +1,21 @@
+<div class="card text-bg-primary">Kiralamalar</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Marka</th>
+            <th>Müşteri Adı</th>
+            <th>Kiralama Tarihi</th>
+            <th>Teslim Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rental of rentalDetails">
+            <td>{{rental.id}}</td>
+            <td>{{rental.brandName}}</td>
+            <td>{{rental.customerName}}</td>
+            <td>{{rental.rentDate}}</td>
+            <td>{{rental.returnDate}}</td>
+        </tr>
+    </tbody>
+</table>  

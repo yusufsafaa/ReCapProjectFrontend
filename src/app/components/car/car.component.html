@@ -1,0 +1,19 @@
+<div class="card text-bg-primary">Arabalar</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Color</th>
+            <th>Kira</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of carDetails">
+            <td>{{car.brandName}}</td>
+            <td>{{car.carModel}}</td>
+            <td>{{car.colorName}}</td>
+            <td>{{car.dailyPrice}}</td>
+        </tr>
+    </tbody>
+</table>  
