@@ -20,4 +20,12 @@ export class CarService {
   getDetails():Observable<ListResponseModel<CarDetail>>{
     return this.httpClient.get<ListResponseModel<CarDetail>>(this.apiUrl+"getdetails");
   }
+
+  getCarsByBrand(brandId:number):Observable<ListResponseModel<CarDetail>> {
+    return this.httpClient.get<ListResponseModel<CarDetail>>(this.apiUrl+"getbybrand?brandId="+brandId);
+  }
+
+  getCarsByColor(colorId:number):Observable<ListResponseModel<CarDetail>> {
+    return this.httpClient.get<ListResponseModel<CarDetail>>(this.apiUrl+"getbycolor?colorId="+colorId);
+  }
 }
