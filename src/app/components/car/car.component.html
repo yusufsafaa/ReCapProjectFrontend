@@ -1,19 +1,54 @@
-<div class="card text-bg-primary">Arabalar</div>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Marka</th>
-            <th>Model</th>
-            <th>Renk</th>
-            <th>Günlük Kira</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let car of carDetails">
-            <td>{{car.brandName}}</td>
-            <td>{{car.carModel}}</td>
-            <td>{{car.colorName}}</td>
-            <td>{{car.dailyPrice}}</td>
-        </tr>
-    </tbody>
-</table>  
+<div class="row mt-4" style="margin-left: 1%">
+    <div
+      *ngFor="let car of carDetails"
+      class="card mt-2 mr-2"
+      style="width: 18rem; margin-right: 10px"
+    >
+      <img
+        *ngIf="car.imagePath"
+        [src]="baseUrl+car.imagePath"
+        class="card-img-top"
+        style="object-fit: cover"
+        width="100"
+        height="50%"
+      />
+  
+      <img
+        *ngIf="!car.imagePath"
+        [src]="baseUrl+'default-car.jpg'"
+        class="card-img-top"
+        style="object-fit: cover"
+        width="100"
+        height="50%"
+      />
+  
+      <div class="card-body">
+        <h4 class="cart-title text-center">{{ car.brandName + " " + car.carModel }}</h4>
+      </div>
+  
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Model Yılı</strong>  | {{ car.modelYear }}</li>
+        <li class="list-group-item"><strong>Marka</strong> | {{ car.brandName }}</li>
+        <li class="list-group-item"><strong>Renk</strong> | {{ car.colorName }}</li>
+        <li class="list-group-item"><strong>Açıklama</strong> | {{ car.description }}</li>
+        <li class="list-group-item"><strong>Günlük Fiyat:</strong>  {{ car.dailyPrice + " ₺" }}</li>
+        <li class="text-bg-warning list-group-item"><strong>Aylık %20 İndirimli Fiyat:</strong>
+            {{ car.dailyPrice * 30 * 0.8 + " ₺" }}
+        </li>
+      </ul>
+  
+      <div class="card-body">
+        <div class="row">
+  
+          <button
+            type="button"
+            class="btn btn-dark"
+            routerLink="/cars/cardetail/{{car.carId}}"
+          >
+            Araç Detayı
+          </button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
