@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarImageService } from 'src/app/services/car-image.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-car-detail',
@@ -21,7 +23,9 @@ export class CarDetailComponent implements OnInit{
 
   constructor(private activatedRoute:ActivatedRoute,
     private carDetailService:CarDetailService,
-    private carImageService:CarImageService){}
+    private carImageService:CarImageService,
+    private toastrService:ToastrService,
+    private cartService:CartService){}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
@@ -47,6 +51,10 @@ export class CarDetailComponent implements OnInit{
   getImagePath(carImage: CarImage) {
     let path = this.imageUrl + carImage.imagePath;
     return path;
+  }
+
+  addToCart(car:CarDetail){
+    this.cartService.addToCart(car);
   }
 
 }
