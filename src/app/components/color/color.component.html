@@ -1,12 +1,15 @@
 <div class="text-center text-bg-warning p-1 rounded-3">
     <b>Renkler</b>
   </div>
+  <div class="mb-3">
+    <input type="text" [(ngModel)]="colorFilterText" class="form-control" id="colorFilterText" placeholder="Renk giriniz">
+  </div>
 <ul class="list-group">
     <li (click)="currentColor=null" [class]="getAllColorClass()" routerLink="cars">Tüm Renkler</li>
     <li
     (click)="setCurrentColor(color)"
     routerLink="cars/color/{{color.id}}"
     [class]="getCurrentColorClass(color)" 
-     *ngFor="let color of colors">{{color.name}}
+     *ngFor="let color of colors | colorFilterPipe:colorFilterText">{{color.name}}
     </li>
 </ul>
