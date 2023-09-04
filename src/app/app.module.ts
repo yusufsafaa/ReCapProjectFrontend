@@ -21,6 +21,7 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { FilterCarComponent } from './components/filter-car/filter-car.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
     CartSummaryComponent,
     CarAddComponent,
     ColorAddComponent,
-    BrandAddComponent
+    BrandAddComponent,
+    FilterCarComponent
   ],
   imports: [
     BrowserModule,
