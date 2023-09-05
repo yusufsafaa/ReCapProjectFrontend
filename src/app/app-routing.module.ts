@@ -7,6 +7,7 @@ import { CarAddComponent } from './components/car-add/car-add.component';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},
@@ -20,8 +21,9 @@ const routes: Routes = [
   {path:"brands/add",component:BrandAddComponent},
 
   {path:"colors/add",component:ColorAddComponent},
-  
-  {path:"login",component:LoginComponent}
+
+  {path:"login",component:LoginComponent},
+  {path:"register",component:RegisterComponent}
 ];
 
 @NgModule({

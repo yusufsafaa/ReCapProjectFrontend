@@ -17,10 +17,18 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <div class="dropdown" *ngIf="isLoggedIn()">
+              <button  class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Profilim</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item text-primary">Profili Düzenle</a></li>
+                <li><a class="dropdown-item text-primary" (click)="logOut()" routerLink="">Çıkış Yap</a></li>
+              </ul>
+            </div>
+            
+            <button *ngIf="!isLoggedIn()" class="btn btn-outline-primary" routerLink="login" type="submit">Giriş Yap</button>
+            <button *ngIf="!isLoggedIn()" class="btn btn-outline-primary" routerLink="register" type="submit">Kayıt Ol</button>
+        </div>
       </div>
     </div>
   </nav>

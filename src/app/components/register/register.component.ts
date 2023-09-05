@@ -5,12 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent implements OnInit{
-  loginForm:FormGroup;
+export class RegisterComponent implements OnInit {
+  registerForm:FormGroup;
 
   constructor(private formBuilder:FormBuilder,
     private authService:AuthService,
@@ -18,26 +18,29 @@ export class LoginComponent implements OnInit{
     private router:Router){}
   
   ngOnInit(): void {
-    this.createLoginForm();
+    this.createRegisterForm();
   }
 
-  createLoginForm(){
-    this.loginForm=this.formBuilder.group({
+  createRegisterForm(){
+    this.registerForm=this.formBuilder.group({
       email:["",Validators.required],
-      password:["",Validators.required]
+      password:["",Validators.required],
+      firstName:["",Validators.required],
+      lastName:["",Validators.required]
     })
   }
 
-  login(){
-    if(this.loginForm.valid){
-      let loginModel=Object.assign({},this.loginForm.value);
+  register(){
+    if(this.registerForm.valid){
+      let registerModel=Object.assign({},this.registerForm.value);
 
-      this.authService.login(loginModel).subscribe(response=>{
+      this.authService.register(registerModel).subscribe(response=>{
         this.router.navigate([""]);
+        this.toastrService.info("Kayıt başarıyla tamamlandı");
         this.toastrService.info(response.message);
         localStorage.setItem("token",response.data.token);
       },errorResponse=>{
-        this.router.navigate(["login"]);
+        this.router.navigate(["register"]);
         this.toastrService.error(errorResponse.error.message);
       })
     }
