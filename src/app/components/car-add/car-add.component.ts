@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CarService } from 'src/app/services/car.service';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-car-add',
@@ -13,7 +14,8 @@ export class CarAddComponent implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     private carService:CarService,
-    private toastrService:ToastrService){}
+    private toastrService:ToastrService,
+    private errorService:ErrorService){}
   
   ngOnInit(): void {
     this.createCarAddForm();
@@ -36,11 +38,7 @@ export class CarAddComponent implements OnInit {
       this.carService.add(carModel).subscribe(response=>{
         this.toastrService.success(response.message);
       },responseError=>{
-        if(responseError.error.Errors.length>0){
-          for (let i = 0; i < responseError.error.Errors.length; i++) {
-            this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama Hatası!");
-          }
-        }
+        this.errorService.showErrorMessage(responseError,"Araç eklenemedi");
       }) 
     }
     else{
