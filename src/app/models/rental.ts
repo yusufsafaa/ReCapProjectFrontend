@@ -4,4 +4,6 @@ export interface Rental{
     customerId:number;
     rentDate:Date;
     returnDate:Date;
+    paymentId:number;
+    deliveryStatus:boolean;
 }

@@ -16,6 +16,8 @@ export class NaviComponent {
 
   logOut(){
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("customerId");
     this.toastrService.info("Çıkış Yapıldı");
   }
 }

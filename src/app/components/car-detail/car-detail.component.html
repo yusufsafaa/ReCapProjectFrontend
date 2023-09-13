@@ -27,26 +27,26 @@
 </div>   
 <br>
   <div class="col-md-12 cardsize" 
-  
-  *ngFor = "let car of carDetails " >
+    *ngFor="let carDetail of carDetails"
+   >
     <div class="card  ">
      
 
       <div class="card-body">
         
-        <h2 class="card-title text-center">{{car.brandName |uppercase}} </h2>
-        <h6 class="text-center">{{car.carModel}} </h6>
+        <h2 class="card-title text-center">{{carDetail.brandName |uppercase}} </h2>
+        <h6 class="text-center">{{carDetail.carModel}} </h6>
       </div>
       <ul class="list-group list-group-flush text-center text-bolder">
-        <li class="list-group-item"><i><b>Model Yılı</b></i> | {{car.modelYear}}</li>
-        <li class="list-group-item"><i><b>Renk</b></i> | {{car.colorName}}</li>
-        <li class="list-group-item"><i><b>Detaylar</b></i> | {{car.description}}</li>
-        <li class="list-group-item"><i><b>Günlük Fiyat</b></i> | {{car.dailyPrice  | currency:"₺ " }}</li>
-        <li class="list-group-item"><i><b>Aylık Fiyat %20 indirimli</b></i>  {{(car.dailyPrice *30 )*0.8|  currency:"₺"  }}</li>
+        <li class="list-group-item"><i><b>Model Yılı</b></i> | {{carDetail.modelYear}}</li>
+        <li class="list-group-item"><i><b>Renk</b></i> | {{carDetail.colorName}}</li>
+        <li class="list-group-item"><i><b>Detaylar</b></i> | {{carDetail.description}}</li>
+        <li class="list-group-item"><i><b>Günlük Fiyat</b></i> | {{carDetail.dailyPrice  | currency:"₺ " }}</li>
+        <li class="list-group-item"><i><b>Aylık Fiyat %20 indirimli</b></i>  {{(carDetail.dailyPrice *30 )*0.8|  currency:"₺"  }}</li>
         
       </ul>
       <button 
-      type="button" (click)="addToCart(car)" class="btn btn-success">Aracı Şimdi Kirala</button>
+      type="button" routerLink="/cars/cardetail/{{carDetail.carId}}/rental" class="btn btn-success">Aracı Şimdi Kirala</button>
      
     </div>
     <br>

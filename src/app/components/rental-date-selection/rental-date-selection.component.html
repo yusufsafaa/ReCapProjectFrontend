@@ -1,0 +1,27 @@
+<div *ngIf="carDetails.length>0" style="width: 36rem;">
+    <img
+        [src]="baseImageUrl+carDetails[0].imagePath"
+        class="card-img-top"
+        style="object-fit: cover"
+        width="100"
+        height="50%"
+      />
+    <div class="card-body row-cols-1">
+      <h1 class="card-title text-center"><strong>{{carDetails[0].brandName}} {{carDetails[0].carModel}}</strong> </h1>
+      <h5 class="card-title text-center"><strong>Günlük Kira Bedeli: </strong> {{carDetails[0].dailyPrice|currency:"₺"}}</h5>
+      <div class="form-group">
+        <label for="pickupDate"><strong>Kiralanacak Tarih:</strong> </label>
+        <input type="Date" class="form-control" id="pickupDate" [(ngModel)]="rentDate" (ngModelChange)="checkRentDate()">
+      </div>
+      <div class="form-group">
+        <label class="text-bolder" for="returnDate"><strong>Teslim Edilecek Tarih:</strong></label>
+        <input type="Date" class="form-control" id="returnDate" [(ngModel)]="returnDate" (ngModelChange)="checkReturnDate()">
+        <br>
+      </div>
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <h4 class="card-text text-center"><strong>Toplam Fiyat:</strong>  {{totalPrice|currency:"₺"}}</h4>
+        <button type="button" class="btn btn-success" (click)="addToCart()" (click)="navigateToPayment()" [disabled]="!isReturnDateValid || !isRentDateValid">Ödeme aşamasına geç</button>
+        <button type="button" class="btn btn-success" (click)="addToCart()" routerLink="" [disabled]="!isReturnDateValid || !isRentDateValid">Sepete ekle ve gezinmeye devam et</button>
+      </div>
+    </div>
+  </div>

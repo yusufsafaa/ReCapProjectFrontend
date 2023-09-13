@@ -3,8 +3,9 @@
       Sepet
     </a>
     <ul class="dropdown-menu">
-      <li *ngFor="let cartItem of cartItems"><a class="dropdown-item"><b class="badge text-bg-success">{{cartItem.car.brandName +" "+ cartItem.car.carModel}}</b><span (click)="removeFromCart(cartItem.car)" class="badge text-bg-danger">Sil</span></a></li>
+      <li *ngFor="let car of carDetails; let i = index"><a class="dropdown-item"><b class="text-dark">{{car.brandName +" "+ car.carModel}}</b><span (click)="removeFromCart(i)" class="badge text-bg-danger">Sil</span></a></li>
       <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item">Sepete Git</a></li>
+      <li *ngIf="cartItems.length>0"><a class="dropdown-item" routerLink="payment" >Ödemeye Geç</a></li>
+      <li *ngIf="cartItems.length>0"><a class="dropdown-item" (click)="clearUserCart()" >Sepeti Temizle</a></li>
     </ul>
   </li>

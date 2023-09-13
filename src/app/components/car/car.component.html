@@ -41,8 +41,16 @@
       </ul>
   
       <div class="card-body">
-        <div class="row">
-  
+        <div class="row d-grid gap-1">
+          
+          <button
+            type="button"
+            class="btn btn-success"
+            routerLink="/cars/cardetail/{{car.carId}}/rental"
+          >
+            Kirala
+          </button>
+
           <button
             type="button"
             class="btn btn-dark"
@@ -50,7 +58,7 @@
           >
             Araç Detayı
           </button>
-  
+
         </div>
       </div>
     </div>

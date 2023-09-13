@@ -25,6 +25,8 @@ import { FilterCarComponent } from './components/filter-car/filter-car.component
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { PaymentComponent } from './components/payment/payment.component';
+import { RentalDateSelectionComponent } from './components/rental-date-selection/rental-date-selection.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     BrandAddComponent,
     FilterCarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PaymentComponent,
+    RentalDateSelectionComponent
   ],
   imports: [
     BrowserModule,

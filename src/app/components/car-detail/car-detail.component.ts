@@ -53,8 +53,4 @@ export class CarDetailComponent implements OnInit{
     return path;
   }
 
-  addToCart(car:CarDetail){
-    this.cartService.addToCart(car);
-  }
-
 }

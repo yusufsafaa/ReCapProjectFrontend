@@ -3,6 +3,8 @@ import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { CustomerService } from 'src/app/services/customer.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,9 @@ export class LoginComponent implements OnInit{
   constructor(private formBuilder:FormBuilder,
     private authService:AuthService,
     private toastrService:ToastrService,
-    private router:Router){}
+    private router:Router,
+    private userService:UserService,
+    private customerService:CustomerService){}
   
   ngOnInit(): void {
     this.createLoginForm();
@@ -35,6 +39,17 @@ export class LoginComponent implements OnInit{
       this.authService.login(loginModel).subscribe(response=>{
         this.router.navigate([""]);
         this.toastrService.info(response.message);
+
+        this.userService.getUserByMail(loginModel.email).subscribe(userResponse=>{
+          localStorage.setItem("userId",userResponse.data.id.toString());
+
+          this.customerService.getCustomerByUserId(userResponse.data.id).subscribe(customerResponse=>{
+            if(customerResponse.data!=null){
+              localStorage.setItem("customerId",customerResponse.data.id.toString());
+            }
+          })
+        })
+
         localStorage.setItem("token",response.data.token);
       },errorResponse=>{
         this.router.navigate(["login"]);

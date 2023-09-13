@@ -1,39 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Car } from '../models/car';
-import { CartItems } from '../models/cartItems';
 import { CartItem } from '../models/cartItem';
-import { CarDetail } from '../models/carDetail';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
+import { ResponseModel } from '../models/responseModel';
+import { Observable } from 'rxjs';
+import { ListResponseModel } from '../models/listResponseModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  apiUrl = 'https://localhost:7291/api/carts/';
 
-  constructor(private toastrService:ToastrService) { }
+  constructor(private toastrService:ToastrService,
+    private httpClient:HttpClient) { }
 
-  addToCart(car:CarDetail){
-    let item=CartItems.find(c=>c.car.carId===car.carId)
-
-    if(item){
-      this.toastrService.warning("Zaten sepette mevcut",car.brandName+" "+car.carModel);
-    }
-    else{
-      let cartItem=new CartItem();
-      cartItem.car=car;
-      cartItem.quantity=1;
-      CartItems.push(cartItem);
-      this.toastrService.success("Sepete Eklendi",car.brandName+" "+car.carModel);
-    }
+  addToCart(cartItem:CartItem):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"add",cartItem);
   }
 
-  removeFromCart(car:CarDetail){
-    let item:CartItem=CartItems.find(c=>c.car.carId===car.carId);
-    CartItems.splice(CartItems.indexOf(item),1);
-    this.toastrService.error("Sepetten silindi",car.brandName+" "+car.carModel);
+  removeFromCart(cartItem:CartItem){
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"delete",cartItem);
   }
 
-  list(){
-    return CartItems;
+  clearUserCart(userId:number){
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"deleteallbyuserid?userId="+userId,userId);
+  }
+
+  listOfUserCart(userId:number):Observable<ListResponseModel<CartItem>>{
+    return this.httpClient.get<ListResponseModel<CartItem>>(this.apiUrl+"getallbyuserid?userId="+userId);
   }
 }
