@@ -7,12 +7,14 @@ import { CreditCard } from 'src/app/models/creditCard';
 import { Customer } from 'src/app/models/customer';
 import { CustomerCreditCard } from 'src/app/models/customerCreditCard';
 import { Payment } from 'src/app/models/payment';
+import { Rental } from 'src/app/models/rental';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CreditCardService } from 'src/app/services/credit-card.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { DateTimeService } from 'src/app/services/date-time.service';
 import { PaymentService } from 'src/app/services/payment.service';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-payment',
@@ -39,7 +41,8 @@ export class PaymentComponent implements OnInit{
     private cartService:CartService,
     private carDetailService:CarDetailService,
     private dateTimeService:DateTimeService,
-    private paymentService:PaymentService){}
+    private paymentService:PaymentService,
+    private rentalService:RentalService){}
   
   ngOnInit(): void {
     this.createCreditCardAddForm();
@@ -59,28 +62,26 @@ export class PaymentComponent implements OnInit{
   checkout(){
     if(this.creditCardAddForm.valid){
       this.checkBalance();
-      console.log("Başarılı")
     }
     else{
       this.toastrService.info("Eksik Kart Bilgisi");
     }
   }
 
-  checkBalance(){
+  async checkBalance(){
     let creditCardModel:CreditCard=Object.assign({balance:20000},this.creditCardAddForm.value);
 
     if(creditCardModel.balance>this.totalPriceOfPayment){
       
       if(!localStorage.getItem("customerId")){
-        this.createNewCustomer();
+        await this.createNewCustomer();
       }
 
       if(this.saveCreditCard){
-        this.addCreditCard(creditCardModel);
+        await this.addCreditCard(creditCardModel);
       }
-      else{
-        this.completePayment();
-      }
+      
+      this.completePayment();
     }
     else{
       this.toastrService.error("Yetersiz kredi kartı limiti","Hata");
@@ -98,12 +99,13 @@ export class PaymentComponent implements OnInit{
   }
 
   addCreditCard(creditCardModel:CreditCard){
+    creditCardModel.balance-=this.totalPriceOfPayment;
+    
     this.creditCardService.saveCreditCard(creditCardModel).subscribe(responseCreditCard=>{
       this.toastrService.info(responseCreditCard.message);
 
       this.paymentModel.creditCardId=responseCreditCard.data;
       this.addCustomerCreditCard(responseCreditCard.data);
-      this.completePayment();
     })
   }
 
@@ -122,7 +124,29 @@ export class PaymentComponent implements OnInit{
 
     this.paymentService.addPayment(this.paymentModel).subscribe(response=>{
       this.toastrService.success(response.message);
+      
+      this.addRentals(response.data);
     })
+  }
+
+  async addRentals(paymentId:number){
+    for (let i = 0; i < this.cartItems.length; i++) {
+      let newRentalModel:Rental=new Rental()
+      newRentalModel.paymentId=paymentId;
+      newRentalModel.customerId=Number(localStorage.getItem("customerId"));
+      newRentalModel.carId=this.cartItems[i].carId;
+      newRentalModel.rentDate=this.cartItems[i].rentDate;
+      newRentalModel.returnDate=this.cartItems[i].returnDate;
+      newRentalModel.deliveryStatus=false;
+
+      await this.rentalService.addRentals(newRentalModel).toPromise();
+    }
+    
+    this.clearUserCart();
+  }
+
+  clearUserCart(){
+    this.cartService.clearUserCart(Number(localStorage.getItem("userId"))).subscribe(response=>{});
   }
 
   getCartItems(){
