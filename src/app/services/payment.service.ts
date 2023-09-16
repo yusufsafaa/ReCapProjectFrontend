@@ -15,4 +15,8 @@ export class PaymentService {
   addPayment(paymentModel:Payment):Observable<SingleResponseModel<number>>{
     return this.httpClient.post<SingleResponseModel<number>>(this.apiUrl+"add",paymentModel);
   }
+
+  getLastPaymentOfCustomer(customerId:number):Observable<SingleResponseModel<Payment>>{
+    return this.httpClient.get<SingleResponseModel<Payment>>(this.apiUrl+"getlastpaymentofcustomer?customerId="+customerId);
+  }
 }

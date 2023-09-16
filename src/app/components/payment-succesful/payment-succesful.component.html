@@ -1,0 +1,33 @@
+<div class="container">
+    <div style="position: relative;">
+        <div class="mt-5 mb-5 p-5">
+            <div class="text-center text-success">
+                <img class="img-responsive cc-img" src="/assets/images/success.png" height="200">
+                <h1><strong>ÖDEME BAŞARILI</strong></h1>
+                <h5>Bizi tercih ettiğiniz için teşekkürler!</h5>
+            </div>
+            <div class="container text-center">
+                <div class="mt-3" style="width: 450px; margin:auto">
+                    <ul class="list-group">
+                        <li *ngIf="payment.id"
+                        class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Sipariş ID:
+                        <span>{{payment.id}}</span>
+                        </li> 
+                        <li *ngIf="payment.amount"
+                        class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Sipariş Tutarı:
+                        <span>{{payment.amount|currency:("₺")}}</span>
+                        </li> 
+                        <li *ngIf="payment.paymentDate"
+                        class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Sipariş Tarihi:
+                        <span>{{payment.paymentDate}}</span>
+                        </li> 
+                    </ul>
+                </div><br>
+                <button routerLink="" class="btn btn-success">Ana sayfaya dön</button>
+            </div>
+        </div>
+    </div>
+</div>

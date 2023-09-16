@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CartItem } from 'src/app/models/cartItem';
@@ -26,6 +27,7 @@ export class PaymentComponent implements OnInit{
   carDetails:CarDetail[]=[];
   creditCardAddForm:FormGroup;
   saveCreditCard:boolean=false;
+  isPaymentSuccessful=false;
   totalPriceOfPayment=0;
   paymentModel:Payment=new Payment;
   cardHolderFullName:string="";
@@ -42,7 +44,8 @@ export class PaymentComponent implements OnInit{
     private carDetailService:CarDetailService,
     private dateTimeService:DateTimeService,
     private paymentService:PaymentService,
-    private rentalService:RentalService){}
+    private rentalService:RentalService,
+    private router:Router){}
   
   ngOnInit(): void {
     this.createCreditCardAddForm();
@@ -118,9 +121,11 @@ export class PaymentComponent implements OnInit{
   }
 
   completePayment(){
+    this.isPaymentSuccessful=true;
+    
     this.paymentModel.customerId=Number(localStorage.getItem("customerId"));
     this.paymentModel.amount=this.totalPriceOfPayment;
-    this.paymentModel.paymentDate=new Date(this.dateTimeService.getTimeNow());
+    this.paymentModel.paymentDate=new Date();
 
     this.paymentService.addPayment(this.paymentModel).subscribe(response=>{
       this.toastrService.success(response.message);
@@ -172,5 +177,13 @@ export class PaymentComponent implements OnInit{
     }
     
     return this.totalPriceOfPayment;
+  }
+
+  navigateToPaymentSuccessful(){
+    setTimeout(() => {
+      if(this.isPaymentSuccessful){
+        this.router.navigateByUrl("payment/successful");
+      }
+    }, 1000);
   }
 }

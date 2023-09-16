@@ -27,6 +27,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RentalDateSelectionComponent } from './components/rental-date-selection/rental-date-selection.component';
+import { PaymentSuccesfulComponent } from './components/payment-succesful/payment-succesful.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RentalDateSelectionComponent } from './components/rental-date-selection
     LoginComponent,
     RegisterComponent,
     PaymentComponent,
-    RentalDateSelectionComponent
+    RentalDateSelectionComponent,
+    PaymentSuccesfulComponent
   ],
   imports: [
     BrowserModule,
