@@ -18,10 +18,11 @@
           </li>
         </ul>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <div class="dropdown" *ngIf="isLoggedIn()">
-              <button  class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Profilim</button>
+            <div class="dropdown" *ngIf="user && isLoggedIn()" >
+              
+              <button  class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img class="img-responsive cc-img" src="/assets/images/user.png" height="%20" width="40"> {{user.firstName}} {{user.lastName}}</button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item text-primary">Profili Düzenle</a></li>
+                <li><a class="dropdown-item text-primary" routerLink="profile">Profili Düzenle</a></li>
                 <li><a class="dropdown-item text-primary" (click)="logOut()" routerLink="">Çıkış Yap</a></li>
               </ul>
             </div>

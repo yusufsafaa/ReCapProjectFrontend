@@ -15,4 +15,8 @@ export class UserService {
   getUserByMail(email:string):Observable<SingleResponseModel<User>>{
     return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserbymail?email="+email);
   }
+
+  getUserById(userId:number):Observable<SingleResponseModel<User>>{
+    return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserbyid?userId="+userId);
+  }
 }

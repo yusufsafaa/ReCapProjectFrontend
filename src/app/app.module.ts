@@ -28,6 +28,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RentalDateSelectionComponent } from './components/rental-date-selection/rental-date-selection.component';
 import { PaymentSuccesfulComponent } from './components/payment-succesful/payment-succesful.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PaymentSuccesfulComponent } from './components/payment-succesful/paymen
     RegisterComponent,
     PaymentComponent,
     RentalDateSelectionComponent,
-    PaymentSuccesfulComponent
+    PaymentSuccesfulComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

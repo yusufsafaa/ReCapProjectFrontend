@@ -1,0 +1,76 @@
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="/assets/images/user.png"><span class="font-weight-bold">{{user.firstName}} {{user.lastName}}</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="row card">
+                <div class="card-header text-center " style="background-color: #2a69e7; color: rgb(255, 255, 255);"><strong>Bilgilerim</strong> </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5  text-end">
+                            <strong>Ad soyad:</strong>
+                        </div>
+                        <div class="col-md-7">
+                            <p>{{user.firstName}} {{user.lastName}}</p>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-5  text-end">
+                                <strong>E-mail:</strong>
+                            </div>
+                            <div class="col-md-7">
+                                <p>{{user.email}}</p>
+                            </div>
+                        </div>
+                </div>
+            </div><br>
+            <div class="row card">
+                <div class="card-header text-center " style="background-color: #2a69e7; color: white;"><strong>Parolayı değiştir</strong> </div>
+                <div class="card-body">
+                    <form [formGroup]="changePasswordForm">
+                        <div class="form-floating">
+                            <input formControlName="oldPassword" type="password" class="form-control" id="oldPassword"
+                                placeholder="Mevcut şifre">
+                            <label for="oldPassword">Eski şifre</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input formControlName="newPassword" type="password" class="form-control" id="newpassword"
+                                placeholder="Yeni şifre">
+                            <label for="newpassword">Yeni şifre</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input formControlName="confirmNewPassword" type="password" class="form-control"
+                                id="confirmnewpassword" placeholder="Yeni şifre tekrar">
+                            <label for="confirmnewpassword">Yeni şifre tekrar</label>
+                        </div>
+                        <div class="mt-3 text-center d-grid gap-2">
+                            <button class="btn btn-primary">Parolayı güncelle</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div><br>
+            <div class="row card">
+                <div class="card-header text-center " style="background-color: #2a69e7; color: white;"><strong>İsim değiştir</strong> </div>
+                <div class="card-body">
+                    <form [formGroup]="changePasswordForm">
+                        <div class="form-floating">
+                            <input formControlName="oldPassword" type="text" class="form-control" id="newFirstName"
+                                placeholder="Yeni ad ">
+                            <label for="oldPassword">Ad</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input formControlName="oldPassword" type="text" class="form-control" id="newLastName"
+                                placeholder="Yeni soyad ">
+                            <label for="oldPassword">Soyad</label>
+                        </div>
+                        <div class="mt-3 text-center d-grid gap-2">
+                            <button class="btn btn-primary" >İsmi güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

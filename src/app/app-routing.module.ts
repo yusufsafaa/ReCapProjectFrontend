@@ -12,6 +12,7 @@ import { LoginGuard } from './guards/login.guard';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RentalDateSelectionComponent } from './components/rental-date-selection/rental-date-selection.component';
 import { PaymentSuccesfulComponent } from './components/payment-succesful/payment-succesful.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
 
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
+  {path:"profile",component:ProfileComponent},
 
   {path:"payment",component:PaymentComponent},
   {path:"payment/successful",component:PaymentSuccesfulComponent}
