@@ -5,6 +5,7 @@ import { FormGroup,FormBuilder,FormControl,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,8 @@ export class ProfileComponent implements OnInit {
     private formBuilder:FormBuilder,
     private toastrService:ToastrService,
     private authService:AuthService,
-    private router:Router){}
+    private router:Router,
+    private errorService:ErrorService){}
   
   ngOnInit(): void {
     this.getUser();
@@ -38,9 +40,25 @@ export class ProfileComponent implements OnInit {
 
   createChangeNameForm(){
     this.changeNameForm=this.formBuilder.group({
-      newFirstName:["",Validators.required],
-      newLastName:["",Validators.required]
+      firstName:["",Validators.required],
+      lastName:["",Validators.required]
     })
+  }
+
+  updateUser(){
+    if(this.changeNameForm.valid){
+      let userToUpdated:User=Object.assign({},this.changeNameForm.value);
+      userToUpdated.email=this.user.email;
+      userToUpdated.id=this.user.id;
+
+      this.userService.updateUser(userToUpdated).subscribe(response=>{
+        this.toastrService.success(response.message);
+        this.goHomePage();
+      })
+    }
+    else{
+      this.toastrService.error("Hatalı bilgi girişi");
+    }
   }
 
   changePassword(){
@@ -70,6 +88,10 @@ export class ProfileComponent implements OnInit {
   logOutAndGoLoginPage(){
     this.authService.logOut();
     this.router.navigate(["login"]);
+  }
+
+  goHomePage(){
+    this.router.navigate([""]);
   }
 
   getUser(){
