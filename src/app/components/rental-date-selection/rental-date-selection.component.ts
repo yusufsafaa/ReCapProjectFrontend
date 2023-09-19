@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import {ActivatedRoute, Router} from "@angular/router";
-import { CarImageService } from 'src/app/services/car-image.service';
 import { ToastrService } from 'ngx-toastr';
 import { DateTimeService } from 'src/app/services/date-time.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/models/cartItem';
-import { CarImage } from 'src/app/models/carImage';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-rental-date-selection',
@@ -22,6 +21,7 @@ export class RentalDateSelectionComponent implements OnInit{
   totalPrice:number=0;
   isReturnDateValid:boolean=false;
   isRentDateValid:boolean=false;
+  redirectToPayment:boolean=false;
   baseImageUrl="https://localhost:7291/Uploads/CarImages";
 
   constructor(private carDetailService:CarDetailService,
@@ -29,7 +29,8 @@ export class RentalDateSelectionComponent implements OnInit{
     private toastrService:ToastrService,
     private dateTimeService:DateTimeService,
     private cartService:CartService,
-    private router:Router){}
+    private router:Router,
+    private rentalService:RentalService){}
   
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -88,6 +89,13 @@ export class RentalDateSelectionComponent implements OnInit{
 
     this.cartService.addToCart(cartItemModel).subscribe(response=>{
       this.toastrService.success("Araç sepete eklendi");
+      
+      if(this.redirectToPayment){
+        this.navigateToPayment();
+      }
+      else{
+        this.navigateToHomePage();
+      }
     },errorResponse=>{
       this.toastrService.error("Araç sepete eklenemedi","Hata");
     })
@@ -95,5 +103,25 @@ export class RentalDateSelectionComponent implements OnInit{
 
   navigateToPayment(){
     this.router.navigateByUrl("/payment");
+  }
+
+  navigateToHomePage(){
+    this.router.navigate([""]);
+  }
+
+  clickedRedirectToPayment(){
+    this.redirectToPayment=true;
+  }
+
+  clickedRedirectToHomePage(){
+    this.redirectToPayment=false;
+  }
+
+  checkIfCarCanBeRentedSelectedDates(){
+    this.rentalService.checkIfCarCanBeRented(this.carDetails[0].carId,new Date(this.rentDate),new Date(this.returnDate)).subscribe(response=>{
+      this.addToCart();
+    },errorResponse=>{
+      this.toastrService.error("Araç belirtilen tarihte zaten başka bir kiralamada bulunuyor","Hata!");
+    })
   }
 }

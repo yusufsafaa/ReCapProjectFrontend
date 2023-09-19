@@ -20,8 +20,8 @@
       </div>
       <div class="d-grid gap-2 col-6 mx-auto">
         <h4 class="card-text text-center"><strong>Toplam Fiyat:</strong>  {{totalPrice|currency:"₺"}}</h4>
-        <button type="button" class="btn btn-success" (click)="addToCart()" (click)="navigateToPayment()" [disabled]="!isReturnDateValid || !isRentDateValid">Ödeme aşamasına geç</button>
-        <button type="button" class="btn btn-success" (click)="addToCart()" routerLink="" [disabled]="!isReturnDateValid || !isRentDateValid">Sepete ekle ve gezinmeye devam et</button>
+        <button type="button" class="btn btn-success" (click)="clickedRedirectToPayment()" (click)="checkIfCarCanBeRentedSelectedDates()" [disabled]="!isReturnDateValid || !isRentDateValid">Ödeme aşamasına geç</button>
+        <button type="button" class="btn btn-success" (click)="clickedRedirectToHomePage()" (click)="checkIfCarCanBeRentedSelectedDates()" [disabled]="!isReturnDateValid || !isRentDateValid">Sepete ekle ve gezinmeye devam et</button>
       </div>
     </div>
   </div>
