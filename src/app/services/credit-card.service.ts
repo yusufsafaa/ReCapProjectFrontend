@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ResponseModel } from '../models/responseModel';
 import { CustomerCreditCard } from '../models/customerCreditCard';
 import { SingleResponseModel } from '../models/singleResponseModel';
+import { ListResponseModel } from '../models/listResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class CreditCardService {
 
   saveCreditCardToCustomer(customerCreditCard:CustomerCreditCard):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiUrl+"savecreditcardtocustomer",customerCreditCard);
+  }
+
+  getCustomerCreditCards(customerId:number):Observable<ListResponseModel<CreditCard>>{
+    return this.httpClient.get<ListResponseModel<CreditCard>>(this.apiUrl+"getcustomercreditcards?customerId="+customerId);
   }
 }

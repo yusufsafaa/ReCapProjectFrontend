@@ -25,8 +25,11 @@ import { RentalService } from 'src/app/services/rental.service';
 export class PaymentComponent implements OnInit{
   cartItems:CartItem[]=[];
   carDetails:CarDetail[]=[];
+  savedCreditCards:CreditCard[]=[];
+  currentCreditCard:CreditCard;
   creditCardAddForm:FormGroup;
   saveCreditCard:boolean=false;
+  paySavedCreditCard:boolean=false;
   isPaymentSuccessful=false;
   totalPriceOfPayment=0;
   paymentModel:Payment=new Payment;
@@ -50,6 +53,7 @@ export class PaymentComponent implements OnInit{
   ngOnInit(): void {
     this.createCreditCardAddForm();
     this.getCartItems();
+    this.getCustomerCreditCards();
   }
 
   createCreditCardAddForm(){
@@ -71,8 +75,18 @@ export class PaymentComponent implements OnInit{
     }
   }
 
+  payWithSavedCreditCard(creditCardModel:CreditCard){
+    this.currentCreditCard=creditCardModel
+  }
+
   async checkBalance(){
-    let creditCardModel:CreditCard=Object.assign({balance:20000},this.creditCardAddForm.value);
+    let creditCardModel:CreditCard;
+    if(this.paySavedCreditCard){
+      creditCardModel=this.currentCreditCard;
+    }
+    else{
+      creditCardModel=Object.assign({balance:20000},this.creditCardAddForm.value);
+    }
 
     if(creditCardModel.balance>this.totalPriceOfPayment){
       
@@ -80,14 +94,14 @@ export class PaymentComponent implements OnInit{
         await this.createNewCustomer();
       }
 
-      if(this.saveCreditCard){
+      if(this.saveCreditCard && !this.payWithSavedCreditCard){
         await this.addCreditCard(creditCardModel);
       }
       
       this.completePayment();
     }
     else{
-      this.toastrService.error("Yetersiz kredi kartı limiti","Hata");
+      this.toastrService.error("Yetersiz kredi kartı limiti","Hata!");
     }
   }
 
@@ -106,7 +120,7 @@ export class PaymentComponent implements OnInit{
     
     this.creditCardService.saveCreditCard(creditCardModel).subscribe(responseCreditCard=>{
       this.toastrService.info(responseCreditCard.message);
-
+      
       this.paymentModel.creditCardId=responseCreditCard.data;
       this.addCustomerCreditCard(responseCreditCard.data);
     })
@@ -148,6 +162,12 @@ export class PaymentComponent implements OnInit{
     }
     
     this.clearUserCart();
+  }
+
+  getCustomerCreditCards(){
+    this.creditCardService.getCustomerCreditCards(Number(localStorage.getItem("customerId"))).subscribe(response=>{
+      this.savedCreditCards=response.data;
+    })
   }
 
   clearUserCart(){
