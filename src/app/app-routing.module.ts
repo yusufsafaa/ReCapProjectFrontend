@@ -13,6 +13,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { RentalDateSelectionComponent } from './components/rental-date-selection/rental-date-selection.component';
 import { PaymentSuccesfulComponent } from './components/payment-succesful/payment-succesful.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CarManagerComponent } from './components/car-manager/car-manager.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path:"cars/cardetail/:carId/rental",component:RentalDateSelectionComponent},
   {path:"cars/filter/:brandId/:colorId",component:CarComponent},
   {path:"cars/add",component:CarAddComponent, canActivate:[LoginGuard]},
+  {path:"cars/manager",component:CarManagerComponent,canActivate:[LoginGuard]},
 
   {path:"brands/add",component:BrandAddComponent,canActivate:[LoginGuard]},
 

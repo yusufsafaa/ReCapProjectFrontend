@@ -1,0 +1,26 @@
+<table class="table">
+    <thead>
+      <tr class="table table-danger">
+        <th scope="col">Id</th>
+        <th scope="col">Marka</th>
+        <th scope="col">Model</th>
+        <th scope="col">Renk</th>
+        <th scope="col">Model Yılı</th>
+        <th scope="col">Günlük Ücret</th>
+        <th scope="col">Açıklama</th>
+        <th scope="col"><button type="button" class="btn btn-success" routerLink="/cars/add" >Araç Ekle</button></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let carDetail of carDetails">
+        <th scope="row">{{carDetail.carId}}</th>
+        <td>{{carDetail.brandName}}</td>
+        <td>{{carDetail.carModel}}</td>
+        <td>{{carDetail.colorName}}</td>
+        <td>{{carDetail.modelYear}}</td>
+        <td>{{carDetail.dailyPrice|currency:"₺"}}</td>
+        <td>{{carDetail.description}}</td>
+        <td><button type="button" class="btn btn-danger">Düzenle</button></td>
+      </tr>
+    </tbody>
+  </table>
