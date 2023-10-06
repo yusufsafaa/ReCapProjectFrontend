@@ -30,6 +30,7 @@ import { RentalDateSelectionComponent } from './components/rental-date-selection
 import { PaymentSuccesfulComponent } from './components/payment-succesful/payment-succesful.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CarManagerComponent } from './components/car-manager/car-manager.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { CarManagerComponent } from './components/car-manager/car-manager.compon
     RentalDateSelectionComponent,
     PaymentSuccesfulComponent,
     ProfileComponent,
-    CarManagerComponent
+    CarManagerComponent,
+    CarUpdateComponent
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,7 @@
         <td>{{carDetail.modelYear}}</td>
         <td>{{carDetail.dailyPrice|currency:"₺"}}</td>
         <td>{{carDetail.description}}</td>
-        <td><button type="button" class="btn btn-danger">Düzenle</button></td>
+        <td><button type="button" class="btn btn-danger" routerLink="/cars/update/{{carDetail.carId}}" >Düzenle</button></td>
       </tr>
     </tbody>
   </table>

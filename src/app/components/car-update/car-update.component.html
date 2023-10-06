@@ -1,0 +1,58 @@
+<h1 class="text-body-secondary text-center">Aracı Güncelle</h1>
+<form [formGroup]="carUpdateForm">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="mb-3">
+                <label for="brandId" class="form-label">Marka</label>
+                <select id="brandId" class="form-select" formControlName="brandId">
+                    <option *ngFor="let brand of brands" [ngValue]="brand.id" >
+                        {{brand.name}}  
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-12">
+            <div class="mb-3">
+                <label for="colorId" class="form-label">Renk</label>
+                <select id="colorId" class="form-select" formControlName="colorId">
+                    <option *ngFor="let color of colors" [ngValue]="color.id" >
+                        {{color.name}}  
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="carModel" class="form-label">Model</label>
+                <input id="carModel" type="text" class="form-control" placeholder="{{carDetails[0].carModel}}" formControlName="carModel"/>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="modelYear" class="form-label">Model Yılı</label>
+                <input id="modelYear" type="number" class="form-control" placeholder="{{carDetails[0].modelYear}}" formControlName="modelYear"/>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="dailyPrice" class="form-label">Günlük Kira Ücreti (₺)</label>
+                <input id="dailyPrice" type="number" class="form-control" placeholder="{{carDetails[0].dailyPrice}}" formControlName="dailyPrice"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3">
+            <label for="description" class="form-label">Açıklama</label>
+            <textarea id="description" type="text" class="form-control" placeholder="{{carDetails[0].description}}" formControlName="description" rows="3"></textarea>
+        </div>
+    </div>
+    
+    <button type="submit" (click)="updateCar()" class="btn btn-success">Güncelle</button>
+  </form>
